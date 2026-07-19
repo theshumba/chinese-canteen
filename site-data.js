@@ -11,7 +11,7 @@ window.SITE_DATA = {
     city: "Cambridge",
     tagline: "Szechuan & Cantonese cooking in the centre of Cambridge",
     subtitle:
-      "Generous portions, handmade dumplings and one of the few places in Cambridge making fresh bubble milk tea.",
+      "Generous portions and more than 130 dishes, cooked to order over an open flame.",
     address: "30 Bridge Street, Cambridge CB2 1UJ",
     nearby: "Next to St John's & Magdalene College",
     mapUrl: "https://maps.google.com/?q=30+Bridge+Street+Cambridge+CB2+1UJ",
@@ -21,7 +21,7 @@ window.SITE_DATA = {
     phoneHref: "tel:+441223312415",
     notes: [
       "Walk in to dine, or order ahead for collection",
-      "10% off for students with a valid ID",
+      "Delivery via Uber Eats, Deliveroo & HungryPanda",
       "Generous portions — plenty to take home"
     ],
     hours: [
@@ -39,6 +39,14 @@ window.SITE_DATA = {
     // Every "Order for collection" button points here.
     url: "https://chinesecanteen.lifeintouch.net/"
   },
+
+  // Delivery platforms. Rendered into every [data-partners] element by app.js —
+  // edit a URL here and it updates everywhere on the site.
+  delivery: [
+    { name: "Uber Eats", logo: "images/partners/uber-eats.svg", url: "https://www.ubereats.com/gb/store/chinese-canteen/aDj3fmn0QXeTDpvlax_Nbg" },
+    { name: "Deliveroo", logo: "images/partners/deliveroo.svg", url: "https://deliveroo.co.uk/menu/cambridge/cambridge-centre/chinese-canteen" },
+    { name: "HungryPanda", logo: "images/partners/hungrypanda.png", url: "https://www.hungrypanda.co/" }
+  ],
 
   // Category order on the menu page.
   categories: [
@@ -61,8 +69,8 @@ window.SITE_DATA = {
     { code: "002", name: "Crispy Seaweed", nameZh: "脆海苔", category: "Starters", price: 6.5, tags: ["V"], heat: 0, description: "Quick-fried shredded kelp, lightly salted." },
     { code: "003", name: "Sesame Prawn Toast", nameZh: "虾多士", category: "Starters", price: 8.5, tags: ["F"], heat: 0, description: "Golden fried bread topped with minced prawn and sesame seeds." },
     { code: "004", name: "Vegetable Spring Rolls (5)", nameZh: "素春卷", category: "Starters", price: 7.5, tags: ["V"], heat: 0, description: "Crispy rolls stuffed with shredded cabbage, carrots and mixed vegetables." },
-    { code: "005", name: "Pan-Fried Dumplings", nameZh: "猪肉锅贴", category: "Starters", price: 8.0, tags: [], heat: 0, description: "Handmade, filled with seasoned pork, pan-seared until golden and crispy." },
-    { code: "006", name: "Crispy Aromatic Duck", nameZh: "香酥鸭", category: "Starters", price: 14.5, tags: [], heat: 0, description: "Quarter duck prepared in-house, served with pancakes, cucumber, spring onion and Peking sauce." },
+    { code: "005", name: "Pan-Fried Dumplings", nameZh: "猪肉锅贴", category: "Starters", price: 8.0, tags: [], heat: 0, description: "Filled with seasoned pork, pan-seared until golden and crispy." },
+    { code: "006", name: "Crispy Aromatic Duck", nameZh: "香酥鸭", category: "Starters", price: 14.5, tags: [], heat: 0, description: "Quarter duck served with pancakes, cucumber, spring onion and Peking sauce." },
     { code: "007", name: "Satay Chicken Skewers", nameZh: "沙爹鸡串", category: "Starters", price: 8.5, tags: ["N"], heat: 0, description: "Tender chicken skewers served with a rich peanut sauce." },
     { code: "008", name: "Salt & Pepper King Prawns", nameZh: "椒盐大虾", category: "Starters", price: 9.5, tags: ["F"], heat: 0, description: "Lightly battered king prawns, wok-tossed with chillies and onions." },
     { code: "009", name: "Salt & Pepper Squid", nameZh: "椒盐鲜鱿", category: "Starters", price: 9.5, tags: ["F"], heat: 0, description: "Lightly battered squid, wok-tossed with chillies and onions." },
@@ -85,7 +93,7 @@ window.SITE_DATA = {
     // ---------- Soups ----------
     { code: "023", name: "Seafood Soup", nameZh: "海鲜汤", category: "Soups", price: 5.0, tags: ["F"], heat: 0, description: "Light broth with prawns, crab sticks, squid and vegetables." },
     { code: "024", name: "Hot & Sour Soup", nameZh: "酸辣汤", category: "Soups", price: 5.0, tags: [], heat: 1, description: "Thick broth with egg, tofu and vegetables, seasoned with vinegar and pepper." },
-    { code: "025", name: "Won Ton Soup", nameZh: "云吞汤", category: "Soups", price: 5.0, tags: [], heat: 0, description: "Light broth with handmade pork and vegetable won tons." },
+    { code: "025", name: "Won Ton Soup", nameZh: "云吞汤", category: "Soups", price: 5.0, tags: [], heat: 0, description: "Light broth with pork and vegetable won tons." },
     { code: "026", name: "West Lake Beef Soup", nameZh: "西湖牛肉羹", category: "Soups", price: 5.0, tags: [], heat: 0, description: "Thick, silky broth with minced beef and egg whites." },
     { code: "027", name: "Mixed Vegetable Soup", nameZh: "杂菜汤", category: "Soups", price: 5.0, tags: ["V"], heat: 0, description: "Light broth with cabbage, carrots and mushrooms." },
     { code: "028", name: "Sweet Corn Soup", nameZh: "粟米汤", category: "Soups", price: 5.0, tags: [], heat: 0, description: "Thick, creamy sweetcorn broth with egg whites. Choose plain, chicken or crab stick." },
@@ -118,7 +126,7 @@ window.SITE_DATA = {
     { code: "053", name: "Broccoli with Garlic Sauce", nameZh: "蒜蓉西兰花", category: "Vegetable Dishes", price: 11.5, tags: ["V"], heat: 0, description: "Fresh broccoli stir-fried in fragrant garlic sauce." },
 
     // ---------- Rice & Noodles ----------
-    { code: "054", name: "Peking Dumplings", nameZh: "北京水饺", category: "Rice & Noodles", price: 10.5, tags: [], heat: 0, description: "Handmade dumplings filled with seasoned pork and Chinese cabbage." },
+    { code: "054", name: "Peking Dumplings", nameZh: "北京水饺", category: "Rice & Noodles", price: 10.5, tags: [], heat: 0, description: "Boiled dumplings filled with seasoned pork and Chinese cabbage." },
     { code: "055", name: "Plain Noodles", nameZh: "净面", category: "Rice & Noodles", price: 7.5, tags: ["V"], heat: 0, description: "Simple fried noodles, no meat or vegetables." },
     { code: "056", name: "Steamed Rice", nameZh: "白米饭", category: "Rice & Noodles", price: 3.5, tags: ["V"], heat: 0, description: "Plain steamed rice." },
     { code: "057", name: "Egg Fried Rice", nameZh: "鸡蛋炒饭", category: "Rice & Noodles", price: 5.5, tags: ["V"], heat: 0, description: "Wok-fried rice with beaten egg and soy sauce." },
@@ -240,7 +248,7 @@ window.SITE_DATA = {
       name: "Set Meal B",
       price: 26.5,
       per: "per person",
-      min: "Minimum 2 people",
+      min: "Minimum 3 people",
       dishes: ["Prawn Crackers", "Crispy Seaweed", "Crispy Aromatic Duck", "Salt & Pepper Chicken Wings", "Beef in Oyster Sauce", "Sweet & Sour Pork", "Kung Po Chicken", "Stir-Fried Mixed Vegetables", "Egg Fried Rice"]
     },
     {
@@ -307,7 +315,7 @@ window.SITE_DATA.dishImages = {
 // Homepage signature gallery — the showpieces, in display order.
 window.SITE_DATA.signature = [
   { code: "018", name: "Sichuan Steamed Chicken", nameZh: "川味口水鸡", image: "images/dishes/sichuan-steamed-chicken.jpg",
-    blurb: "“Saliva chicken” — poached, chilled, then drowned in a glossy chilli oil with sesame and crushed peanuts.", heat: 2 },
+    blurb: "“Mouth-watering chicken” — poached, chilled, then drowned in a glossy chilli oil with sesame and crushed peanuts.", heat: 2 },
   { code: "044", name: "Dragon Aubergine", nameZh: "龙虾茄子", image: "images/dishes/dragon-aubergine.jpg",
     blurb: "Whole aubergine lacquered in fish-fragrant sauce, crowned with king prawns. Our most photographed plate.", heat: 1 },
   { code: "037", name: "Mapo Tofu", nameZh: "麻婆豆腐", image: "images/dishes/mapo-tofu.jpg",
@@ -315,57 +323,21 @@ window.SITE_DATA.signature = [
   { code: "069", name: "Henan Hand-Pulled Noodle Soup", nameZh: "河南烩面", image: "images/dishes/henan-noodle-soup.jpg",
     blurb: "Noodles stretched to order by hand, dropped into a slow, hearty broth of beef or lamb.", heat: 0 },
   { code: "006", name: "Crispy Aromatic Duck", nameZh: "香酥鸭", image: "images/dishes/crispy-aromatic-duck.jpg",
-    blurb: "Prepared in-house and shredded at the table — pancakes, cucumber, spring onion, Peking sauce.", heat: 0 },
+    blurb: "Shredded at the table — pancakes, cucumber, spring onion and sweet Peking sauce.", heat: 0 },
   { code: "067", name: "Beef Fried Ho Fan", nameZh: "牛肉炒河粉", image: "images/dishes/beef-ho-fan.jpg",
-    blurb: "Wide rice noodles tossed over a roaring flame until they carry that elusive smoke — wok hei.", heat: 0 }
+    blurb: "Wide rice noodles tossed over a roaring flame until they carry that elusive smoke — wok hei.", heat: 0 },
+  { code: "134", name: "Cantonese Roast Duck", nameZh: "广式烧鸭", image: "images/dishes/roast-duck.jpg",
+    blurb: "Lacquered skin, tender meat — the Cantonese barbecue classic, carved and ready for the table.", heat: 0 }
 ];
 
-// Editorial copy.
-window.SITE_DATA.about = {
-  eyebrow: "食府 · Since Bridge Street",
-  heading: "A canteen in name. A kitchen with ambition.",
-  lead: "We are a family kitchen on Bridge Street, a few doors from St John's and Magdalene. “Canteen” is our promise, not our ceiling — generous, unfussy, made for sharing — but the cooking reaches for the real thing: the numbing heat of Sichuan, the clean precision of Cantonese, hand-pulled noodles from Henan.",
-  body: [
-    "Our dumplings are folded by hand each morning. Our duck is braised and roasted in-house, not bought in. Our noodles for the Henan soup are stretched to order — you can hear them snap against the bench.",
-    "We are one of the only places in Cambridge pulling fresh bubble milk tea, and the only one many of our regulars will trust with a proper Shuizhu fish or a Ma La Tang pot."
-  ],
-  stats: [
-    { value: "130+", label: "Dishes, all made to order" },
-    { value: "11–10", label: "Open every day, 11am til late" },
-    { value: "10%", label: "Off for students, always" }
-  ]
-};
-
+// "How we cook" cards.
 window.SITE_DATA.craft = [
-  { image: "images/chef-kitchen.jpg", kicker: "The Wok", title: "Cooked over open flame",
+  { image: "images/craft-wok.jpg", kicker: "The Wok", title: "Cooked over open flame",
     text: "Every stir-fry meets a flame hot enough to char the air. That breath of smoke — wok hei — is the difference between a takeaway and a kitchen." },
-  { image: "images/szechuan-cook.jpg", kicker: "Sichuan", title: "Heat with a memory",
+  { image: "images/craft-sichuan.jpg", kicker: "Sichuan", title: "Heat with a memory",
     text: "Dried chillies, Sichuan peppercorn, chilli-bean paste. We build heat in layers so it lingers and warms rather than simply burns." },
-  { image: "images/cantonese-cook.jpg", kicker: "Cantonese", title: "Restraint as a craft",
-    text: "Steamed sea bass, ginger and spring onion, a whisper of soy and a pour of hot oil. The hardest cooking is the cooking that hides its hand." }
-];
-
-window.SITE_DATA.experience = [
-  { icon: "dine", title: "Dine In", text: "Walk in and share a table of plates in the heart of the city. No occasion required." },
-  { icon: "collect", title: "Order & Collect", text: "Order ahead online and skip the wait — ready when you arrive, packed to travel well." },
-  { icon: "book", title: "Reserve", text: "Bringing a group, or a date you care about? Reserve a table and let us look after the rest." }
-];
-
-// Reservation form configuration.
-// To go live, replace `endpoint` with a Formspree/Basin URL (https://formspree.io).
-// Until then the form falls back to opening the guest's email client.
-window.SITE_DATA.reservation = {
-  endpoint: "",                       // e.g. "https://formspree.io/f/xxxxxx"
-  email: "info@chinesecanteen.co.uk", // fallback mailto + where requests are sent
-  maxPartyOnline: 8,
-  note: "For parties of 9 or more, or same-day bookings within 2 hours, please call us on 01223 312415."
-};
-
-window.SITE_DATA.faq = [
-  { q: "Do I need to book a table?", a: "Walk-ins are always welcome — that's the canteen spirit. For weekends, larger groups or a guaranteed table, we'd recommend reserving ahead." },
-  { q: "Can I order for collection?", a: "Yes. Order online any time and we'll have it freshly cooked and packed for the time you choose. Everything travels well." },
-  { q: "Do you cater for vegetarians and allergies?", a: "Plenty of the menu is vegetarian (look for the V), and there's a dedicated vegetarian set meal. Tell us about any allergies when you order or arrive — fish, nuts and seafood are marked on the menu." },
-  { q: "Is there a student discount?", a: "Always. 10% off for students with a valid ID, dine-in or collection." }
+  { image: "images/craft-cantonese.jpg", kicker: "Cantonese", title: "Restraint as a craft",
+    text: "Steamed dim sum, ginger and spring onion, a whisper of soy and a pour of hot oil. The hardest cooking is the cooking that hides its hand." }
 ];
 
 // Curated highlights for the homepage menu teaser (code references into the menu).

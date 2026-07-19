@@ -80,9 +80,9 @@
   var marquee = $("#marquee");
   if (marquee) {
     var phrases = [
-      ["Handmade dumplings", "猪肉锅贴"], ["Hand-pulled noodles", "河南烩面"],
+      ["Pan-fried dumplings", "猪肉锅贴"], ["Hand-pulled noodles", "河南烩面"],
       ["Sichuan heat", "麻辣"], ["Cantonese roast duck", "广式烧鸭"],
-      ["Fresh bubble tea", "珍珠奶茶"], ["Wok hei", "锅气"],
+      ["Open flame", "明火"], ["Wok hei", "锅气"],
       ["Mapo tofu", "麻婆豆腐"], ["Cooked to order", "现点现做"]
     ];
     var seg = phrases.map(function (p) {
@@ -147,118 +147,14 @@
     }).join("");
   }
 
-  /* faq accordion */
-  var faqList = $("#faqList");
-  if (faqList && D.faq) {
-    faqList.innerHTML = D.faq.map(function (f, i) {
-      var aid = "faq-a-" + i;
-      return '<div class="faq__item"><button class="faq__q" aria-expanded="false" aria-controls="' + aid + '">' +
-        '<span>' + escapeHTML(f.q) + '</span><span class="pm" aria-hidden="true"></span></button>' +
-        '<div class="faq__a" id="' + aid + '"><p>' + escapeHTML(f.a) + '</p></div></div>';
+  /* delivery partner logos — every [data-partners] element gets the same row */
+  var partnerSlots = $$("[data-partners]");
+  if (partnerSlots.length && D.delivery) {
+    var partnerHTML = D.delivery.map(function (p) {
+      return '<a href="' + encodeURI(p.url) + '" target="_blank" rel="noopener" aria-label="Order from Chinese Canteen on ' + escapeHTML(p.name) + '">' +
+        '<img src="' + encodeURI(p.logo) + '" alt="' + escapeHTML(p.name) + '" loading="lazy" /></a>';
     }).join("");
-    $$(".faq__q", faqList).forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var item = btn.parentElement;
-        var open = item.classList.toggle("open");
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
-        var a = $(".faq__a", item);
-        a.style.maxHeight = open ? a.scrollHeight + "px" : "0px";
-      });
-    });
-  }
-
-  /* reservation note */
-  var rNote = $("#reserveNote");
-  if (rNote && D.reservation) rNote.textContent = D.reservation.note;
-
-  /* ================= RESERVATION FORM ================= */
-  var form = $("#reserveForm");
-  if (form) {
-    var cfg = D.reservation || {};
-    /* party select */
-    var party = $("#r-party");
-    if (party) {
-      var max = cfg.maxPartyOnline || 8;
-      var opts = "";
-      for (var p = 1; p <= max; p++) opts += '<option value="' + p + '">' + p + (p === 1 ? " guest" : " guests") + "</option>";
-      opts += '<option value="' + (max + 1) + '+">' + (max + 1) + "+ (please call)</option>";
-      party.innerHTML = opts;
-      party.value = "2";
-    }
-    /* date min = today */
-    var dateEl = $("#r-date");
-    if (dateEl) {
-      var t = new Date(); var iso = t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
-      dateEl.min = iso; dateEl.value = iso;
-    }
-
-    var status = $("#formStatus");
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      status.className = "form__status";
-      var data = {
-        name: $("#r-name").value.trim(),
-        phone: $("#r-phone").value.trim(),
-        email: $("#r-email").value.trim(),
-        date: $("#r-date").value,
-        time: $("#r-time").value,
-        party: $("#r-party").value,
-        seating: $("#r-seating").value,
-        notes: $("#r-notes").value.trim()
-      };
-      if (!data.name || !data.phone || !data.date || !data.time) {
-        status.textContent = "Please add your name, phone, date and time.";
-        status.classList.add("err"); return;
-      }
-
-      var subject = "Reservation request — " + data.name + " — party of " + data.party;
-      var bodyLines = [
-        "New reservation request from chinesecanteen.co.uk", "",
-        "Name: " + data.name, "Phone: " + data.phone, "Email: " + (data.email || "—"),
-        "Date: " + data.date, "Time: " + data.time, "Party: " + data.party,
-        "Preference: " + data.seating, "Notes: " + (data.notes || "—")
-      ];
-      var body = bodyLines.join("\n");
-
-      function success() {
-        var wrap = $("#formFields");
-        wrap.innerHTML =
-          '<div class="form__success">' +
-            '<div class="seal hanzi">食</div>' +
-            '<h3>Request received</h3>' +
-            '<p>Thank you, ' + escapeHTML(data.name) + '. We&rsquo;ll confirm your table for ' +
-              data.party + ' on ' + escapeHTML(data.date) + ' at ' + escapeHTML(data.time) +
-              ' shortly. For anything urgent, call us on <a href="tel:+441223312415" style="color:var(--lacquer);font-weight:700">01223 312415</a>.</p>' +
-          '</div>';
-      }
-
-      if (cfg.endpoint) {
-        status.textContent = "Sending…";
-        fetch(cfg.endpoint, {
-          method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify(Object.assign({ _subject: subject }, data))
-        }).then(function (res) {
-          if (res.ok) success();
-          else throw new Error("bad response");
-        }).catch(function () {
-          status.className = "form__status err";
-          status.innerHTML = 'Something went wrong. Please <a href="mailto:' + (cfg.email || "") +
-            '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) +
-            '" style="color:var(--lacquer);font-weight:700">email us</a> or call 01223 312415.';
-        });
-      } else {
-        /* no endpoint configured — hand off to the guest's email client.
-           We canNOT confirm delivery, so do NOT show the "received" panel:
-           keep the fields in place and tell the guest to press send. */
-        var mailto = "mailto:" + (cfg.email || "") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        window.location.href = mailto;
-        status.className = "form__status ok";
-        status.innerHTML = 'Your email app should now be opening with your request ready — please press <strong>Send</strong> to confirm. ' +
-          'If nothing opened, email <a href="mailto:' + (cfg.email || "") + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) +
-          '" style="color:var(--lacquer);font-weight:700">' + escapeHTML(cfg.email || "us") + '</a> or call <a href="tel:+441223312415" style="color:var(--lacquer);font-weight:700">01223 312415</a>.';
-      }
-    });
+    partnerSlots.forEach(function (el) { el.innerHTML = partnerHTML; });
   }
 
   function escapeHTML(s) { return String(s).replace(/[&<>"']/g, function (c) {
