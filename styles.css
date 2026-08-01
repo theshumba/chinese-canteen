@@ -415,7 +415,10 @@ body.menu-open { overflow: hidden; }
 .chip:hover { border-color: var(--lacquer); color: var(--lacquer); }
 .chip.active { background: var(--lacquer); border-color: var(--lacquer); color: #fff; }
 
-.menulayout { display: grid; grid-template-columns: 230px 1fr; gap: clamp(28px, 4vw, 60px); align-items: start; }
+.menulayout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
+/* grid items default to min-width:auto — the nowrap category strip would otherwise
+   stretch the track to its full min-content width and blow the page out sideways */
+.menulayout > * { min-width: 0; }
 .catnav { position: sticky; top: 150px; }
 .catnav ul { border-left: 1px solid var(--paper-3); }
 .catnav a { display: block; padding: 9px 0 9px 18px; margin-left: -1px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; font-weight: 600; transition: .3s; }
@@ -493,9 +496,9 @@ body.menu-open { overflow: hidden; }
   .about__grid, .teaser__grid, .visit__grid { grid-template-columns: 1fr; }
   .sig__grid, .craft__grid, .exp__grid, .sets, .byo__cols { grid-template-columns: 1fr; }
   .sigcard, .sigcard:first-child, .sigcard.wide { grid-column: auto; min-height: 420px; }
-  .menulayout { grid-template-columns: 1fr; }
+  .menulayout { grid-template-columns: minmax(0, 1fr); }
   /* category nav becomes a sticky horizontal chip strip on mobile */
-  .catnav { position: sticky; top: 146px; z-index: 30; margin: 0 calc(var(--gut) * -1) 14px; padding: 0; }
+  .catnav { position: sticky; top: 146px; z-index: 30; margin: 0 calc(var(--gut) * -1) 14px; padding: 0; min-width: 0; max-width: 100vw; }
   .catnav ul { display: flex; gap: 8px; overflow-x: auto; border-left: none; padding: 10px var(--gut); background: rgba(246,239,225,.95); backdrop-filter: blur(10px); -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
   .catnav li { flex: none; scroll-snap-align: start; }
   .catnav a { white-space: nowrap; border: 1.5px solid var(--paper-3); border-radius: 100px; padding: 8px 15px; margin: 0; }
